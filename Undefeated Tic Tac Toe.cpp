@@ -154,6 +154,7 @@ int get_player_choice(int chance)
         }
         else
         {
+
             // create another board player=1 empty=0 opponent=-1
                 int sum[3][3];
                 for(int i=0;i<3;++i)
@@ -183,7 +184,6 @@ int get_player_choice(int chance)
 
                 dsums[0]=sum[0][0]+sum[1][1]+sum[2][2];
                 dsums[1]=sum[0][2]+sum[1][1]+sum[2][0];
-
 
             // check if player can win
                     for(int i=0;i<3;++i)
@@ -338,9 +338,24 @@ int get_player_choice(int chance)
                             }
                     }
 
+            int my_move;
+
+            //EDGE CASE WHEN OPPONENT GETS TWO CORNERS AND PLAYER HAS CENTRE
+            if(moves[chance-1]==2 && moves[2-chance]==3)
+            {
+                if((sum[0][2]==-1 && sum[1][1]==1 && sum[2][0]==-1) || (sum[0][0]==-1 && sum[1][1]==1 && sum[2][2]==-1))
+                {int edges[4] = {2,4,6,8};
+                my_move = edges[rand()%4];
+                cout<<"Player "<<chance<<" choose "<<my_move<<"\n";
+                delay(1250);
+                return my_move;
+                }
+
+            }
+
 
             // Control reaches here means cannot win cannot block hence play random
-            int my_move=1+rand()%9;
+            my_move=1+rand()%9;
             while(  (b[my_move/3][my_move%3-1]=='X') || (b[my_move/3][my_move%3-1]=='O') )
             {
                 my_move=1+rand()%9;

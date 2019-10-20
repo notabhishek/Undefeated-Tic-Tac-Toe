@@ -20,66 +20,58 @@ void delay(unsigned int miliseconds)
 }
 void Draw_menu()
 {
-    M:
-    system("cls");
-    player1_is_human=true;
-    player2_is_human=true;
-    moves[0]=1;
-    moves[1]=1;
-
-    cout<<"\n\n\t\t\tT i c    T a c   T o e\n\n\n";
-    cout<<"\t1. Human     VS      Human\n";
-    cout<<"\t2. Human     VS   Computer\n";
-    cout<<"\t3. Computer  VS      Human\n";
-    cout<<"\t4. Computer  VS   Computer\n";
-    cout<<"\t5. QUIT\n\n";
-    cout<<"Enter your choice\n";
-    int user_choice;
-    cin>>user_choice;
-    if(user_choice<1 || user_choice>5)
+    while(true)
     {
-        cout<<"Invalid Choice!!!!\n";
-        delay(1250);
-        goto M;
+      system("cls");
+      player1_is_human=true;
+      player2_is_human=true;
+      moves[0]=1;
+      moves[1]=1;
+
+      cout<<"\n\n\t\t\tT i c    T a c   T o e\n\n\n";
+      cout<<"\t1. Human     VS      Human\n";
+      cout<<"\t2. Human     VS   Computer\n";
+      cout<<"\t3. Computer  VS      Human\n";
+      cout<<"\t4. Computer  VS   Computer\n";
+      cout<<"\t5. QUIT\n\n";
+      cout<<"Enter your choice\n";
+      int user_choice;
+      cin>>user_choice;
+      switch(user_choice)
+      {
+        case 1:
+          player1_is_human=true;
+          player2_is_human=true;
+          break;
+        case 2:
+          player1_is_human=true;
+          player2_is_human=false;
+          break;
+        case 3:
+          player1_is_human=false;
+          player2_is_human=true;
+          break;
+        case 4:
+          player1_is_human=false;
+          player2_is_human=false;
+          break;
+        case 5:
+          cout<<"Are you sure you want to quit the game ?\n(y/n)";
+          char confirm='n';
+          cin>>confirm;
+          if(confirm=='Y' || confirm=='y')
+          {
+            system("cls");
+            cout<<"\n\n\n\n\n\n\n\t\t\t\tG A M E O V E R\n";
+            delay(1250);;
+            exit(0);
+          }
+          break;
+        default:
+          cout << "Invalid Choice!!!!\n";
+          delay(1250);
+      }
     }
-
-    if(user_choice==1)
-        {
-            player1_is_human=true;
-            player2_is_human=true;
-        }
-    if(user_choice==2)
-        {
-            player1_is_human=true;
-            player2_is_human=false;
-        }
-    if(user_choice==3)
-        {
-            player1_is_human=false;
-            player2_is_human=true;
-        }
-    if(user_choice==4)
-        {
-            player1_is_human=false;
-            player2_is_human=false;
-        }
-
-        if(user_choice==5)
-        {
-        cout<<"Are you sure you want to quit the game ?\n(y/n)";
-        char confirm='n';
-        cin>>confirm;
-        if(confirm=='Y' || confirm=='y')
-            {
-
-                system("cls");
-                cout<<"\n\n\n\n\n\n\n\t\t\t\tG A M E O V E R\n";
-                delay(1250);;
-                exit(0);
-            }
-        else
-            goto M;
-        }
 }
 void Draw_board()
 {
@@ -102,8 +94,7 @@ void Draw_board()
 
 int get_player_choice(int chance)
 {
-    char player;
-    char opponent;
+    char player, opponent;
     int choice;
     if(chance==1)
         {
@@ -111,7 +102,6 @@ int get_player_choice(int chance)
             opponent='O';
             if(player1_is_human)
             {
-
                 cout<<"Enter your choice Player 1 \n";
                 cin>>choice;
                 return choice;
@@ -174,16 +164,16 @@ int get_player_choice(int chance)
                 int dsums[2];
 
                 // sum of 2 means 2 player pieces + 1 empty place
-                hsums[0]=sum[0][0]+sum[0][1]+sum[0][2];
-                hsums[1]=sum[1][0]+sum[1][1]+sum[1][2];
-                hsums[2]=sum[2][0]+sum[2][1]+sum[2][2];
+                hsums[0] = sum[0][0] + sum[0][1] + sum[0][2];
+                hsums[1] = sum[1][0] + sum[1][1] + sum[1][2];
+                hsums[2] = sum[2][0] + sum[2][1] + sum[2][2];
 
-                vsums[0]=sum[0][0]+sum[1][0]+sum[2][0];
-                vsums[1]=sum[0][1]+sum[1][1]+sum[2][1];
-                vsums[2]=sum[0][2]+sum[1][2]+sum[2][2];
+                vsums[0]= sum[0][0] + sum[1][0] + sum[2][0];
+                vsums[1]= sum[0][1] + sum[1][1] + sum[2][1];
+                vsums[2]= sum[0][2] + sum[1][2] + sum[2][2];
 
-                dsums[0]=sum[0][0]+sum[1][1]+sum[2][2];
-                dsums[1]=sum[0][2]+sum[1][1]+sum[2][0];
+                dsums[0] = sum[0][0] + sum[1][1] + sum[2][2];
+                dsums[1] = sum[0][2] + sum[1][1] + sum[2][0];
 
             // check if player can win
                     for(int i=0;i<3;++i)
@@ -191,29 +181,23 @@ int get_player_choice(int chance)
                         if(hsums[i]==2)
                         {
                             for(int j=0;j<3;++j)
-                            if(sum[i][j]==0)
-                            {
-                                cout<<"Player "<<chance<<"  choose "<<i*3+j+1<<"\n";
-                                delay(1250);;
-                                return i*3+j+1;
-                            }
+                              if(sum[i][j]==0)
+                              {
+                                  cout<<"Player "<<chance<<"  choose "<<i*3+j+1<<"\n";
+                                  delay(1250);
+                                  return i*3+j+1;
+                              }
                         }
-
-                    }
-
-                    for(int i=0;i<3;++i)
-                    {
                         if(vsums[i]==2)
                         {
                             for(int j=0;j<3;++j)
                             if(sum[j][i]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose "<<j*3+i+1<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return j*3+i+1;
                             }
                         }
-
                     }
 
                     if(dsums[0]==2)
@@ -221,19 +205,19 @@ int get_player_choice(int chance)
                         if(sum[0][0]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose 1"<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return 1;
                             }
                         if(sum[1][1]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose 5"<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return 5;
                             }
                         if(sum[2][2]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose 9"<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return 9;
                             }
                     }
@@ -260,10 +244,7 @@ int get_player_choice(int chance)
                             }
                     }
 
-
-
                 //Control here means player cant win means block opponent
-
                     for(int i=0;i<3;++i)
                     {
                         if(hsums[i]==-2)
@@ -272,7 +253,7 @@ int get_player_choice(int chance)
                             if(sum[i][j]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose "<<i*3+j+1<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return i*3+j+1;
                             }
                         }
@@ -287,7 +268,7 @@ int get_player_choice(int chance)
                             if(sum[j][i]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose "<<j*3+i+1<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return j*3+i+1;
                             }
                         }
@@ -299,19 +280,19 @@ int get_player_choice(int chance)
                         if(sum[0][0]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose 1"<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return 1;
                             }
                         if(sum[1][1]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose 5"<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return 5;
                             }
                         if(sum[2][2]==0)
                             {
                                 cout<<player<<chance<<"  choose 9"<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return 9;
                             }
                     }
@@ -321,25 +302,23 @@ int get_player_choice(int chance)
                         if(sum[0][2]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose 3"<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return 3;
                             }
                         if(sum[1][1]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose 5"<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return 5;
                             }
                         if(sum[2][0]==0)
                             {
                                 cout<<"Player "<<chance<<"  choose 7"<<"\n";
-                                delay(1250);;
+                                delay(1250);
                                 return 7;
                             }
                     }
-
             int my_move;
-
             //EDGE CASE WHEN OPPONENT GETS TWO CORNERS AND PLAYER HAS CENTRE
             if(moves[chance-1]==2 && moves[2-chance]==3)
             {
@@ -353,16 +332,12 @@ int get_player_choice(int chance)
 
             }
 
-
             // Control reaches here means cannot win cannot block hence play random
             my_move=1+rand()%9;
             while(  (b[my_move/3][my_move%3-1]=='X') || (b[my_move/3][my_move%3-1]=='O') )
-            {
                 my_move=1+rand()%9;
-                //cout<<my_move<<" "<<flush;
-            }
             cout<<"Player "<<chance<<"  choose "<<my_move<<"\n";
-            delay(1250);;
+            delay(1250);
              return my_move;
 
         }
@@ -421,39 +396,35 @@ S:
         b[i][j]=(i*3+j)+'1';
 
         Draw_board();
-        bool flag=true;
-        int chance=1;
-        int choice;
+        bool flag=true, re_input;
+        int chance=1, choice;
         while(flag)
         {
-
-            A:
-
-                choice=get_player_choice(chance);
-
-            if(b[choice/3][choice%3-1]=='X' || b[choice/3][choice%3-1]=='O')
-                {
+          do
+          {
+              choice=get_player_choice(chance);
+              re_input=false;
+              if(b[choice/3][choice%3-1]=='X' || b[choice/3][choice%3-1]=='O')
+              {
                 cout<<"Already occupied!!! Enter other place\n";
-                goto A;
-                }
+                re_input = true;
+              }
+          }while(re_input);
 
-            if(chance==1)
-                ++moves[0];
-            else
-                ++moves[1];
-
-            if(chance==1)
-                {
-                    b[choice/3][choice%3-1]='X';
-                    chance=2;
-                }
-            else
-                {
-                    b[choice/3][choice%3-1]='O';
-                    chance=1;
-                }
-            Draw_board();
-
+          if(chance==1)
+          {
+              b[choice/3][choice%3-1]='X';
+              chance=2;
+              ++moves[0];
+          }
+          else
+          {
+              b[choice/3][choice%3-1]='O';
+              chance=1;
+              ++moves[1];
+          }
+          Draw_board();
+        }
         int result=check_won();
         if(result==-1)
         {

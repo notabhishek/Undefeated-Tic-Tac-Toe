@@ -1,3 +1,9 @@
 # Undefeated-Tic-Tac-Toe
-You cant defeat this. Aim for a DRAW at max. xD Play against the Computer , test yourself.
-Features 4 different game modes,dont forget to check the Computer VS Computer mode. xD
+*You can't defeat this.* Aim for a DRAW at max. xD Play against the Computer , test yourself.
+##Features 4 different game modes
+- Human     VS      Human
+- Human     VS   Computer
+- Computer  VS      Human
+- Computer  VS   Computer
+
+_Do checkout the Computer vs Computer mode._
